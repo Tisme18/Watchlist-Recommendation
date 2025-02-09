@@ -1,0 +1,149 @@
+{% extends 'finalproject/home.html' %} <!--copies the home.html format-->
+{% load static %}
+{% block navbar%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Choose my Movie</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class=" navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'home' %}">Home </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'movies' %}">Movie Database <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'findme' %}"> Find Me a Movie! </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+<div class = "card">
+    <div class = "w-3" style="margin-bottom: 20;">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10">
+            Sort Movies by
+          </button>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'name' by='name' %}">Movie Name</a>
+            <a class="dropdown-item" href="{% url 'name' by='year' %}">Release year</a>
+            <a class="dropdown-item" href="{% url 'name' by='cert' %}">Certificate</a>
+            <a class="dropdown-item" href="{% url 'name' by='runtime' %}">Runtime</a>
+            <a class="dropdown-item" href="{% url 'name' by='genre' %}">Genre</a>
+            <a class="dropdown-item" href="{% url 'name' by='imdb' %}">IMDB Rating</a>
+            <a class="dropdown-item" href="{% url 'name' by='meta' %}">Metascore</a>
+            <a class="dropdown-item" href="{% url 'name' by='director' %}">Director Name</a>
+            <a class="dropdown-item" href="{% url 'name' by='artist' %}"> Artist </a>
+            <a class="dropdown-item" href="{% url 'name' by='votes' %}"> Votes </a>
+            <a class="dropdown-item" href="{% url 'name' by='gross' %}"> Gross </a>
+          </div>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+    <table class="table table-striped" style="width: 100%;">
+        <thead>
+            <tr>
+                <th scope="col">Movie Name</th>
+                <th scope="col">Release Year</th>
+                <th scope="col">Certificate Earned</th>
+                <th scope="col"> Runtime</th>
+                <th scope="col">Genre</th>
+                <th scope="col">IMDB Rating</th>
+                <th scope="col">Overview</th>
+                <th scope="col">Meta Score</th>
+                <th scope="col"> Director Name</th>
+                <th scope="col"> Actor/Actress </th>
+                <th scope="col"> Actor/Actress </th>
+                <th scope="col">Actor/Actress </th>
+                <th scope="col"> Actor/Actress </th>
+                <th scope="col"> Votes </th>
+                <th scope="col"> Gross </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% if movies %}
+                {% for m in movies %}
+                <tr>
+                    <td>{{ m.name }}</td>
+                    <td>{{ m.year }}</td>
+                    <td>{{ m.cert }}</td>
+                    <td>{{ m.runtime}}</td>
+                    <td>{{ m.genre }}</td>
+                    <td>{{ m.imdb }}</td>
+                    <td>{{ m.overview }}</td>
+                    <td>{{ m.meta }}</td>
+                    <td>{{ m.director }}</td>
+                    <td>{{ m.stara }}</td>
+                    <td>{{ m.starb }}</td>
+                    <td>{{ m.starc}}</td>
+                    <td>{{ m.stard }}</td>
+                    <td>{{ m.votes }}</td>
+                    <td>{{ m.gross }}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+    
+</div>
+<table class="table table-striped" style="width: 100%;">
+  <caption> Recommendations </caption>
+    <thead>
+        <tr>
+            <th scope="col">Movie Name</th>
+            <th scope="col">Release Year</th>
+            <th scope="col">Certificate Earned</th>
+            <th scope="col"> Runtime</th>
+            <th scope="col">Genre</th>
+            <th scope="col">IMDB Rating</th>
+            <th scope="col">Overview</th>
+            <th scope="col">Meta Score</th>
+            <th scope="col"> Director Name</th>
+            <th scope="col"> Actor/Actress </th>
+            <th scope="col"> Actor/Actress </th>
+            <th scope="col">Actor/Actress </th>
+            <th scope="col"> Actor/Actress </th>
+            <th scope="col"> Votes </th>
+            <th scope="col"> Gross </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% if recos %}
+            {% for m in recos %}
+            <tr>
+                <td>{{ m.name }}</td>
+                <td>{{ m.year }}</td>
+                <td>{{ m.cert }}</td>
+                <td>{{ m.runtime}}</td>
+                <td>{{ m.genre }}</td>
+                <td>{{ m.imdb }}</td>
+                <td>{{ m.overview }}</td>
+                <td>{{ m.meta }}</td>
+                <td>{{ m.director }}</td>
+                <td>{{ m.stara }}</td>
+                <td>{{ m.starb }}</td>
+                <td>{{ m.starc}}</td>
+                <td>{{ m.stard }}</td>
+                <td>{{ m.votes }}</td>
+                <td>{{ m.gross }}</td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

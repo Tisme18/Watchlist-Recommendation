@@ -1,0 +1,67 @@
+{% extends 'finalproject/msys30.html' %}
+{% load static %}
+
+{% block menu %}
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="" style="color: rgb(0, 0, 0); font-weight: 500;">Full Dataset</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="" style="color: rgb(0, 0, 0);"> Filter</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="" style="color: rgb(0, 0, 0);"> Search </a>
+    </li>
+</ul>
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-12">
+        <table class="table table-striped mb-5">
+            <thead>
+                <tr>
+                    <th scope="col">Movie Name</th>
+                    <th scope="col">Release Year</th>
+                    <th scope="col">Certificate Earned</th>
+                    <th scope="col"> Runtime</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">IMDB Rating</th>
+                    <th scope="col">Overview</th>
+                    <th scope="col">Meta Score</th>
+                    <th scope="col"> Director Name</th>
+                    <th scope="col"> Actor/Actress </th>
+                    <th scope="col"> Actor/Actress </th>
+                    <th scope="col">Actor/Actress </th>
+                    <th scope="col"> Actor/Actress </th>
+                    <th scope="col"> Votes </th>
+                    <th scope="col"> Gross </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% if movies %}
+                    {% for m in movies %}
+                    <tr>
+                        <td>{{ m.name }}</td>
+                        <td>{{ m.year }}</td>
+                        <td>{{ m.cert }}</td>
+                        <td>{{ m.runtime}}</td>
+                        <td>{{ m.genre }}</td>
+                        <td>{{ m.imdb }}</td>
+                        <td>{{ m.overview }}</td>
+                        <td>{{ m.meta }}</td>
+                        <td>{{ m.director }}</td>
+                        <td>{{ m.stara }}</td>
+                        <td>{{ m.starb }}</td>
+                        <td>{{ m.starc}}</td>
+                        <td>{{ m.stard }}</td>
+                        <td>{{ m.votes }}</td>
+                        <td>{{ m.gross }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'finalproject/home.html' %} <!--copies the home.html format-->
+{% load static %}
+
+{% block navbar%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Choose my Movie</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class=" navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'movies' %}">Movie Database</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'findme' %}"> Find Me A Movie! </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+<div class = "card">
+    <h1> Looking for a movie to watch?</h1>
+    <h2> Fret not because we have the solution for you!</h2>
+    <h5> Browse our expansive movie database and sort them by whichever attribute your desire.</h5>
+    <a href="{% url 'movies' %}" class="btn btn-outline-secondary btn-lg"> View Database</a>
+    <hr>
+    <h5> You can also request for a recommended movie!</h5>
+    <a href="{% url 'findme' %}" class="btn btn-outline-secondary btn-lg">Find Me A Movie!</a>
+
+</div>
+
+{% endblock %}

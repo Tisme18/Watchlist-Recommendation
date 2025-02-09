@@ -1,0 +1,166 @@
+{% extends 'finalproject/home.html' %} <!--copies the home.html format-->
+{% load static %}
+
+{% block navbar%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Choose my Movie</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class=" navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'movies' %}">Movie Database</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link " href="{% url 'findme' %}"> Find Me a Movie! </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="width: auto;">
+  <div class="card" style="padding: 10;">
+    
+    <form method="GET" action="{% url 'findmovie' %}">
+      {% csrf_token %}
+          
+      <label for="searchmovie" style="font-size: larger; font-weight: bolder;">Search a movie: </label>
+      <input type="text" class="form-control mb" id="searchmovie" name="searchmovie" placeholder="Enter movie name">
+
+      <button type="submit" class="btn btn-secondary" style="margin-top: 10; font-weight:500; letter-spacing: 1;">Confirm</button>
+      
+    </form>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+  $(function() {
+    var availableTags = [
+      {% for movie in movies %}
+      "{{ movie.name |escapejs }}",
+      "Action",
+      {% empty %}
+      "No movies available"
+      {% endfor %}
+    ];
+    $("#searchmovie").autocomplete({
+      source: availableTags
+    });
+  });
+</script>
+
+
+<p class="text-center" style="color: #0073CC; font-weight: bold;"> {{message}} </p>
+
+<div class = "card">
+  <table class="table table-striped" style="width: 100%;">
+      <thead>
+          <tr>
+              <th scope="col">Movie Name</th>
+              <th scope="col">Release Year</th>
+              <th scope="col">Certificate Earned</th>
+              <th scope="col"> Runtime</th>
+              <th scope="col">Genre</th>
+              <th scope="col">IMDB Rating</th>
+              <th scope="col">Overview</th>
+              <th scope="col">Meta Score</th>
+              <th scope="col"> Director Name</th>
+              <th scope="col"> Stars </th>
+              <th scope="col"> Stars </th>
+              <th scope="col"> Stars </th>
+              <th scope="col"> Stars </th>
+              <th scope="col"> Votes </th>
+              <th scope="col"> Gross </th>
+
+          </tr>
+      </thead>
+      <tbody>
+          {% if movies %}
+              {% for m in movies %}
+              <tr>
+                  <td>{{ m.name }}</td>
+                  <td>{{ m.year }}</td>
+                  <td>{{ m.cert }}</td>
+                  <td>{{ m.runtime}}</td>
+                  <td>{{ m.genre }}</td>
+                  <td>{{ m.imdb }}</td>
+                  <td>{{ m.overview }}</td>
+                  <td>{{ m.meta }}</td>
+                  <td>{{ m.director }}</td>
+                  <td>{{ m.stara }}</td>
+                  <td>{{ m.starb }}</td>
+                  <td>{{ m.starc}}</td>
+                  <td>{{ m.stard }}</td>
+                  <td>{{ m.votes }}</td>
+                  <td>{{ m.gross }}</td>
+              </tr>
+              {% endfor %}
+          {% endif %}
+      </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h3 class="card-title text-center">Recommendations</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"> Matches </th>
+        <th scope="col">Movie Name</th>
+        <th scope="col">Release Year</th>
+        <th scope="col">Certificate Earned</th>
+        <th scope="col">Runtime</th>
+        <th scope="col">Genre</th>
+        <th scope="col">IMDB Rating</th>
+        <th scope="col">Overview</th>
+        <th scope="col">Meta Score</th>
+        <th scope="col">Director</th>
+        <th scope="col">Stars</th>
+        <th scope="col">Stars</th>
+        <th scope="col">Stars</th>
+        <th scope="col">Stars</th>
+        <th scope="col">Votes</th>
+        <th scope="col">Gross</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if recos %}
+        {% for m in recos %}
+          <tr>
+            <td>{{ m.match }}</td>
+            <td>{{ m.name }}</td>
+            <td>{{ m.year }}</td>
+            <td>{{ m.cert }}</td>
+            <td>{{ m.runtime }}</td>
+            <td>{{ m.genre }}</td>
+            <td>{{ m.imdb }}</td>
+            <td>{{ m.overview }}</td>
+            <td>{{ m.meta }}</td>
+            <td>{{ m.director }}</td>
+            <td>{{ m.stara }}</td>
+            <td>{{ m.starb }}</td>
+            <td>{{ m.starc}}</td>
+            <td>{{ m.stard }}</td>
+            <td>{{ m.votes }}</td>
+            <td>{{ m.gross }}</td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr><td colspan="12">No recommendations based on your search</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
